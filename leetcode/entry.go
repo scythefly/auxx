@@ -3,7 +3,12 @@ package leetcode
 import "fmt"
 
 var (
-	latest int = 6
+	latest int = 9
+)
+
+const (
+	INT32_MIN = -(2 << 30)
+	INT32_MAX = 2<<30 - 1
 )
 
 func Do(idx int) {
@@ -23,8 +28,14 @@ func Do(idx int) {
 		TestLongestPalindrome()
 	case 6:
 		TestConvert()
+	case 7:
+		TestReverse()
+	case 8:
+		TestMyAtoi()
+	case 9:
+		TestIsPalindrome()
 	default:
-		fmt.Println("To Be Continue...")
+		fmt.Println("To Be Continued...")
 	}
 	// LargestComponentSizeTest()
 	//TestDiameterOfBinaryTree()
