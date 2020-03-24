@@ -1,8 +1,12 @@
 package main
 
-import "auxx/leetcode"
+import (
+	"runtime"
+
+	"auxx/command"
+)
 
 func main() {
-	leetcode.Do(0)
-	//check.Perform()
+	runtime.GOMAXPROCS(4)
+	command.Execute()
 }

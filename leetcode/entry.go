@@ -3,7 +3,7 @@ package leetcode
 import "fmt"
 
 var (
-	latest int = 9
+	latest int = 10
 )
 
 const (
@@ -34,6 +34,10 @@ func Do(idx int) {
 		TestMyAtoi()
 	case 9:
 		TestIsPalindrome()
+	case 10:
+		TestIsMatch()
+	case 1286:
+		TestCombinationIterator()
 	default:
 		fmt.Println("To Be Continued...")
 	}

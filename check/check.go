@@ -15,7 +15,8 @@ var (
 )
 
 func Perform() {
-	getValue()
+	//getValue()
+	//panicCheck()
 }
 
 func getTValue() int {
@@ -37,4 +38,11 @@ func getValue() {
 		return nil
 	})
 	g.Wait()
+}
+
+func panicString() {
+	if err := recover(); err != nil {
+		fmt.Println(err)
+	}
+	panic("xxxxxxxxxxxx")
 }
