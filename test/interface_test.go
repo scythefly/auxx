@@ -24,7 +24,7 @@ func Benchmark_PackInterface(b *testing.B) {
 	}
 }
 
-func Benchmark_Unpack(b *testing.B) {
+func Benchmark_NoPack(b *testing.B) {
 	f := &frame{
 		idx:   0,
 		value: 1,

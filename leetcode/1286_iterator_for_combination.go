@@ -49,11 +49,11 @@ func Constructor(characters string, combinationLength int) CombinationIterator {
 }
 
 func (c *CombinationIterator) Next() string {
-
+	return ""
 }
 
 func (c *CombinationIterator) HasNext() bool {
-
+	return false
 }
 
 /**

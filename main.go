@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	runtime.GOMAXPROCS(4)
+	runtime.GOMAXPROCS(12)
 	command.Execute()
 }

@@ -13,6 +13,11 @@ import (
 type frame struct {
 	idx   int
 	value int
+	desc  string
+	id    int
+	cur   int
+	in    chan struct{}
+	r     *ring.Ring
 }
 
 type client struct {
@@ -101,10 +106,10 @@ func (s *server) newClient(id int) {
 		r:  s.keyFrameR,
 	}
 	s.clients.Add(c)
-	//if v, ok := c.r.Value.(*frame); ok {
+	// if v, ok := c.r.Value.(*frame); ok {
 	//	fmt.Println("client:", c.id, "handle frame[", v.idx, v.value, "]")
 	//	time.Sleep(400 * time.Millisecond)
-	//}
+	// }
 	for {
 		<-c.in
 		for c.cur < s.cur {

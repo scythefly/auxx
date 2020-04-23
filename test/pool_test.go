@@ -2,17 +2,14 @@ package test
 
 import (
 	"bytes"
+	"context"
+	"runtime"
 	"testing"
 
-	"golang.org/x/sync/errgroup"
+	pool "github.com/jolestar/go-commons-pool/v2"
 )
 
-var (
-	g1 errgroup.Group
-	g2 errgroup.Group
-)
-
-func Benchmark_UnusePool(b *testing.B) {
+func Benchmark_NoPool(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		capt := i % 4096
 		g1.Go(func() error {
@@ -27,6 +24,7 @@ func Benchmark_UnusePool(b *testing.B) {
 		})
 	}
 	g1.Wait()
+	runtime.GC()
 }
 
 func Benchmark_UsePool(b *testing.B) {
@@ -46,4 +44,35 @@ func Benchmark_UsePool(b *testing.B) {
 		})
 	}
 	g2.Wait()
+	runtime.GC()
+}
+
+func Benchmark_CommonPool(b *testing.B) {
+	factory := pool.NewPooledObjectFactorySimple(
+		func(context.Context) (interface{}, error) {
+			return &bytes.Buffer{}, nil
+		})
+	ctx := context.Background()
+	p := pool.NewObjectPoolWithDefaultConfig(ctx, factory)
+
+	for i := 0; i < b.N; i++ {
+		capt := i % 4096
+		g3.Go(func() error {
+			obj, err := p.BorrowObject(ctx)
+			if err != nil {
+				panic(err)
+			}
+			buf := obj.(*bytes.Buffer)
+			buf.Reset()
+			for buf.Len()+6 < capt {
+				buf.Write([]byte("12345"))
+			}
+			if err = p.ReturnObject(ctx, obj); err != nil {
+				panic(err)
+			}
+			return err
+		})
+	}
+	g3.Wait()
+	runtime.GC()
 }

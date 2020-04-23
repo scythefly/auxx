@@ -2,6 +2,8 @@ package command
 
 import (
 	"github.com/spf13/cobra"
+
+	"auxx/command/utility"
 )
 
 var rootCmd = &cobra.Command{
@@ -13,6 +15,7 @@ func init() {
 	rootCmd.AddCommand(
 		newLeetcodeCommand(),
 		newTestCommand(),
+		utility.NewCommand(),
 	)
 }
 
