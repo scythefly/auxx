@@ -11,17 +11,24 @@ import (
 
 func newTestCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "test",
+		Use: "test",
 		Short: `Run test examples
 	-- ring
 	-- buffer
 	-- cond
+	-- cond1
 	-- error
 	-- ctx
 	-- common-pool
 	-- conn
 	-- chan
 	-- xml
+	-- defer
+	-- return
+	-- url
+	-- pointer
+	-- timer
+	-- img
 `,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) > 0 {
@@ -32,6 +39,8 @@ func newTestCommand() *cobra.Command {
 					test.Buffer()
 				case "cond":
 					test.CondTest()
+				case "cond1":
+					test.Cond1Test()
 				case "error":
 					test.ErrorTest()
 				case "ctx":
@@ -48,6 +57,20 @@ func newTestCommand() *cobra.Command {
 					test.ChanTest(cs)
 				case "xml":
 					test.XmlTest()
+				case "defer":
+					test.DeferTest()
+				case "return":
+					test.ReturnTest()
+				case "memory":
+					test.MemoryTest()
+				case "url":
+					test.URLTest()
+				case "pointer":
+					test.PointerTest()
+				case "timer":
+					test.TimerTest()
+				case "img":
+					test.ImageTest()
 				default:
 					fmt.Println("----  unknown test command  ----")
 				}

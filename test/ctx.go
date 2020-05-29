@@ -3,24 +3,41 @@ package test
 import (
 	"context"
 	"fmt"
-	"time"
 )
+
+type ctxTestContent struct {
+	Idx  int
+	Desc string
+}
+
+type ctxKey int
+
+var ctxContKey ctxKey
+
+func NewContext(ctx context.Context, cont *ctxTestContent) context.Context {
+	return context.WithValue(ctx, ctxContKey, cont)
+}
+
+func FromContext(ctx context.Context) (*ctxTestContent, bool) {
+	c, ok := ctx.Value(ctxContKey).(*ctxTestContent)
+	return c, ok
+}
 
 func CtxTest() {
 	ctx := context.Background()
-	cttx, cancel := context.WithCancel(ctx)
-	for i := 0; i < 5; i++ {
-		go wait(cttx)
+	cont := &ctxTestContent{
+		Idx:  0,
+		Desc: "from main routine",
 	}
-	time.Sleep(time.Second * 2)
-	cancel()
-
-	time.Sleep(time.Second)
+	cctx := NewContext(ctx, cont)
+	onPlay(cctx)
+	fmt.Printf("CtxTest >> idx: %d, desc: %s\n", cont.Idx, cont.Desc)
 }
 
-func wait(ctx context.Context) {
-	select {
-	case <-ctx.Done():
-		fmt.Println("wait goroutine quit...", ctx.Err())
+func onPlay(ctx context.Context) {
+	if cont, ok := FromContext(ctx); ok {
+		cont.Idx++
+		cont.Desc = "from onPlay func"
+		fmt.Printf("onPlay >> idx: %d, desc: %s\n", cont.Idx, cont.Desc)
 	}
 }

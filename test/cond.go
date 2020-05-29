@@ -19,8 +19,10 @@ func init() {
 
 func condWorker(x int) {
 	cond.L.Lock()
+	time.Sleep(10 * time.Second)
 	defer cond.L.Unlock()
 	for i := 0; i < 5; i++ {
+		fmt.Println("worker", x, " waiting...")
 		cond.Wait()
 		fmt.Println("worker", x, " gogogo!")
 		time.Sleep(3 * time.Second)

@@ -101,6 +101,7 @@ func split(opt *splitFileOption, fileName string) error {
 				return rerr
 			}
 			if reg.Match(line) {
+				fmt.Printf("[%d] - %s", cnt, line)
 				cnt++
 				if cnt >= opt.splitChapterCnt {
 					ff.Close()

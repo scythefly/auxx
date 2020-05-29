@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"runtime"
 
 	"auxx/command"
@@ -8,5 +9,7 @@ import (
 
 func main() {
 	runtime.GOMAXPROCS(12)
-	command.Execute()
+	if err := command.Execute(); err != nil {
+		fmt.Println(err)
+	}
 }
