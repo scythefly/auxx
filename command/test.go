@@ -7,32 +7,40 @@ import (
 	"github.com/spf13/cobra"
 
 	"auxx/test"
+	"auxx/test/etcd"
+	"auxx/test/kafka"
 )
 
 func newTestCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "test",
 		Short: `Run test examples
-	-- ring
 	-- buffer
+	-- chan
+	-- common-pool
 	-- cond
 	-- cond1
-	-- error
-	-- ctx
-	-- common-pool
 	-- conn
-	-- chan
-	-- xml
+	-- ctx
 	-- defer
-	-- return
-	-- url
-	-- pointer
-	-- timer
+	-- error
 	-- img
+	-- interface
+	-- path
+	-- plugin
+	-- pointer
+	-- return
+	-- ring
+	-- timer
+	-- url
+	-- user
+	-- xml
 `,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) > 0 {
 				switch args[0] {
+				case "array":
+					test.ArrayTest()
 				case "ring":
 					test.RingBuffer()
 				case "buffer":
@@ -41,6 +49,8 @@ func newTestCommand() *cobra.Command {
 					test.CondTest()
 				case "cond1":
 					test.Cond1Test()
+				case "conf":
+					test.ConfTest()
 				case "error":
 					test.ErrorTest()
 				case "ctx":
@@ -59,6 +69,9 @@ func newTestCommand() *cobra.Command {
 					test.XmlTest()
 				case "defer":
 					test.DeferTest()
+					test.ImageTest()
+				case "reflect":
+					test.ReflectTest()
 				case "return":
 					test.ReturnTest()
 				case "memory":
@@ -67,10 +80,22 @@ func newTestCommand() *cobra.Command {
 					test.URLTest()
 				case "pointer":
 					test.PointerTest()
+				case "quic":
+					test.QuicTest()
+				case "schedule":
+					test.ScheduleTest()
 				case "timer":
 					test.TimerTest()
 				case "img":
 					test.ImageTest()
+				case "path":
+					test.PathTest()
+				case "plugin":
+					test.PluginTest()
+				case "interface":
+					test.InterfaceTest()
+				case "user":
+					test.UserTest()
 				default:
 					fmt.Println("----  unknown test command  ----")
 				}
@@ -78,5 +103,9 @@ func newTestCommand() *cobra.Command {
 		},
 	}
 
+	cmd.AddCommand(
+		etcd.NewCommand(),
+		kafka.NewCommand(),
+	)
 	return cmd
 }

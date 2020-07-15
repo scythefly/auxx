@@ -27,6 +27,7 @@ func NewCommand() *cobra.Command {
 		newTraceCommand(),
 		newFetchWordsCommand(),
 		newInsertWordsCommand(),
+		newDecodeCommand(),
 	)
 
 	flags := cmd.Flags()

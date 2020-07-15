@@ -15,6 +15,7 @@ func init() {
 	rootCmd.AddCommand(
 		newLeetcodeCommand(),
 		newTestCommand(),
+		newHttpCommand(),
 		utility.NewCommand(),
 	)
 }

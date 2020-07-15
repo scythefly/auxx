@@ -1,0 +1,19 @@
+{
+  "Version": "1234",
+  "ServerId": {
+    "test1.scythefly.top": [
+      {
+        "path": "app1/stream1.*",
+        "config": {
+          "desc": "Config of app1/stream1.*"
+        }
+      },
+      {
+        "path": "app2/.*",
+        "config": {
+          "desc": "Config of app2/.*"
+        }
+      }
+    ]
+  }
+}

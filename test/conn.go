@@ -2,7 +2,9 @@ package test
 
 import (
 	"bufio"
+	"io"
 	"net"
+	"os"
 	"time"
 
 	"github.com/scythefly/orb"
@@ -72,4 +74,13 @@ func handle(c net.Conn, m chan []byte) {
 			w.Write(b)
 		}
 	}
+}
+
+func ttttt(c net.Conn) {
+	file, _ := os.Open("xxx")
+	defer file.Close()
+	w := bufio.NewWriter(c)
+
+	r := bufio.NewReader(file)
+	io.Copy(w, r)
 }

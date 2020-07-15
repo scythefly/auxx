@@ -4,6 +4,8 @@ package test
 
 import "fmt"
 
+const MAX_INT64 = int64((^uint64(0)) >> 1)
+
 var (
 	vInt64      int64
 	pInt64      *int64
@@ -27,20 +29,31 @@ func PointerTest() {
 	// assign int64
 	vInt64 = 1
 	valueLoop = true
+	var cnt1, cnt2 int
+	var pp3 int64
 	go writeValue(1)
-	go writeValue(2)
+	go writeValue(MAX_INT64)
 
 	for i := 0; i < 100000; i++ {
-		if vInt64 != 1 && vInt64 != 2 {
-			fmt.Printf(">> !!!!! assign int64 is not atomic !!!!!")
-			return
+		pp3 = vInt64
+		if pp3 == 1 {
+			cnt1++
+			continue
 		}
+		if pp3 == MAX_INT64 {
+			cnt2++
+			continue
+		}
+		fmt.Printf(">>> !!!!! assign value it not atomic !!!!!")
 	}
+	fmt.Printf(">>> %d - %d\n", cnt1, cnt2)
 	valueLoop = false
+	cnt1 = 0
+	cnt2 = 0
 
 	// assign pointer
 	var pp1 int64 = 1
-	var pp2 int64 = 2
+	var pp2 = MAX_INT64
 	pointerLoop = true
 	pInt64 = &pp1
 
@@ -48,10 +61,17 @@ func PointerTest() {
 	go swapPointer(&pp2)
 
 	for i := 0; i < 100000; i++ {
-		if pInt64 != &pp1 && pInt64 != &pp2 {
-			fmt.Printf(">>> !!!!! assign pointer it not atomic !!!!!")
-			return
+		pp3 = *pInt64
+		if pp3 == 1 {
+			cnt1++
+			continue
 		}
+		if pp3 == MAX_INT64 {
+			cnt2++
+			continue
+		}
+		fmt.Printf(">>> !!!!! assign pointer it not atomic !!!!!")
 	}
 	pointerLoop = false
+	fmt.Printf(">>> %d - %d\n", cnt1, cnt2)
 }
