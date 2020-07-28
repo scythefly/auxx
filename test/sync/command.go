@@ -12,11 +12,14 @@ import (
 
 func NewCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "etcd",
-		Short: "Run etcd examples",
+		Use:   "sync",
+		Short: "Run sync examples",
 		RunE:  syncRun,
 	}
 
+	cmd.AddCommand(
+		newChanCommand(),
+	)
 	return cmd
 }
 

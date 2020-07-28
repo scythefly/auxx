@@ -1,0 +1,26 @@
+package types
+
+import "golang.org/x/sync/errgroup"
+
+const (
+	DefaultString = `1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz
+1234567890abcdefghijklmnopqrstuvwxyz`
+)
+
+var (
+	G errgroup.Group
+)

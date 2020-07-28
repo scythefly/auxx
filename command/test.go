@@ -2,7 +2,6 @@ package command
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/spf13/cobra"
 
@@ -61,12 +60,6 @@ func newTestCommand() *cobra.Command {
 					test.CommonPoolTest()
 				case "conn":
 					test.ConnTest()
-				case "chan":
-					var cs int = 1500
-					if len(args) > 1 {
-						cs, _ = strconv.Atoi(args[1])
-					}
-					test.ChanTest(cs)
 				case "xml":
 					test.XmlTest()
 				case "defer":

@@ -1,18 +1,43 @@
-package test
+package sync
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/scythefly/orb"
-	"golang.org/x/sync/errgroup"
+	"github.com/spf13/cobra"
+
+	"auxx/types"
 )
 
 var (
 	upchan  = make(chan []byte, 12)
-	gChan   errgroup.Group
 	clients = orb.NewSet()
 )
+
+func newChanCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "chan",
+		Short: "Run chan examples",
+		RunE:  chanRun,
+	}
+
+	cmd.AddCommand(
+		newChanCloseCommand(),
+	)
+	return cmd
+}
+
+func chanRun(_ *cobra.Command, args []string) error {
+	var err error
+	var cs = 1500
+	if len(args) > 0 {
+		cs, _ = strconv.Atoi(args[0])
+	}
+	chanTest(cs)
+	return err
+}
 
 type chanClient struct {
 	id    int
@@ -39,23 +64,23 @@ func (c *chanClient) sendData() {
 	}
 }
 
-func ChanTest(cs int) {
-	gChan.Go(func() error {
+func chanTest(cs int) {
+	types.G.Go(func() error {
 		chanStartPut()
 		return nil
 	})
 
-	gChan.Go(func() error {
+	types.G.Go(func() error {
 		chanDispatch()
 		return nil
 	})
 
-	gChan.Go(func() error {
+	types.G.Go(func() error {
 		chanAppendClient(cs)
 		return nil
 	})
 
-	gChan.Wait()
+	types.G.Wait()
 }
 
 func chanStartPut() {
@@ -65,7 +90,7 @@ func chanStartPut() {
 		select {
 		case <-ticker.C:
 			select {
-			case upchan <- []byte(defaultString):
+			case upchan <- []byte(types.DefaultString):
 				cnt++
 				if cnt%100 == 0 {
 					fmt.Println(">>>> ", cnt)
