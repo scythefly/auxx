@@ -6,6 +6,7 @@ require (
 	code.google.com/p/graphics-go/graphics v0.0.0-00010101000000-000000000000
 	github.com/Shopify/sarama v1.26.4
 	github.com/coreos/etcd v3.3.22+incompatible
+	github.com/deckarep/golang-set v1.7.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/jasonlvhit/gocron v0.0.0-20200423141508-ab84337f7963

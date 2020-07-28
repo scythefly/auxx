@@ -39,7 +39,7 @@ func asciiImage(m image.Image) {
 	bounds := m.Bounds()
 	dx := bounds.Dx()
 	dy := bounds.Dy()
-	arr := []string{"M", "N", "H", "Q", "$", "O", "C", "?", "7", ">", "!", ":", "–", ";", "."}
+	arr := []string{".", "N", "H", "Q", "$", "O", "C", "?", "7", ">", "!", ":", "–", ";", "."}
 
 	ff, err := os.Create("./out.txt")
 	if err != nil {

@@ -23,4 +23,9 @@ func Test_TimeAPI(tt *testing.T) {
 	fmt.Println(t.IsZero())
 	fmt.Println(t.Unix())
 	fmt.Println(t.Year(), t.Month(), t.Day())
+
+	t = time.Time{}
+	fmt.Println(t.IsZero())
+	fmt.Println(t.Unix())
+	fmt.Println(t.Year(), t.Month(), t.Day())
 }

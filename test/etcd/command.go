@@ -24,6 +24,8 @@ func NewCommand() *cobra.Command {
 	cmd.AddCommand(
 		newWatchCommand(),
 		newPluginCommand(),
+		newLeaseCommand(),
+		newLeaseKVCommand(),
 	)
 	return cmd
 }

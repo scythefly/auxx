@@ -8,7 +8,9 @@ import (
 
 	"auxx/test"
 	"auxx/test/etcd"
+	"auxx/test/http"
 	"auxx/test/kafka"
+	"auxx/test/sync"
 )
 
 func newTestCommand() *cobra.Command {
@@ -86,6 +88,8 @@ func newTestCommand() *cobra.Command {
 					test.ScheduleTest()
 				case "timer":
 					test.TimerTest()
+				case "ticker":
+					test.TickerTest()
 				case "img":
 					test.ImageTest()
 				case "path":
@@ -105,7 +109,9 @@ func newTestCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		etcd.NewCommand(),
+		http.NewCommand(),
 		kafka.NewCommand(),
+		sync.NewCommand(),
 	)
 	return cmd
 }
