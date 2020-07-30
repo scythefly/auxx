@@ -26,7 +26,7 @@ func rectImage(m image.Image, newdx int) *image.RGBA {
 	bounds := m.Bounds()
 	dx := bounds.Dx()
 	dy := bounds.Dy()
-	newRgba := image.NewRGBA(image.Rect(0, 0, newdx, newdx*dy/dx))
+	newRgba := image.NewRGBA(image.Rect(0, 0, newdx*3/2, newdx*dy/dx))
 	graphics.Scale(newRgba, m)
 	return newRgba
 }

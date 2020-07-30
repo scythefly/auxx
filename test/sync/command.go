@@ -19,6 +19,7 @@ func NewCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		newChanCommand(),
+		newAtomicCommand(),
 	)
 	return cmd
 }

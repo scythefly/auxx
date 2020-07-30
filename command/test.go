@@ -7,8 +7,8 @@ import (
 
 	"auxx/test"
 	"auxx/test/etcd"
-	"auxx/test/http"
 	"auxx/test/kafka"
+	"auxx/test/net"
 	"auxx/test/sync"
 )
 
@@ -17,7 +17,6 @@ func newTestCommand() *cobra.Command {
 		Use: "test",
 		Short: `Run test examples
 	-- buffer
-	-- chan
 	-- common-pool
 	-- cond
 	-- cond1
@@ -102,7 +101,7 @@ func newTestCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		etcd.NewCommand(),
-		http.NewCommand(),
+		net.NewCommand(),
 		kafka.NewCommand(),
 		sync.NewCommand(),
 	)

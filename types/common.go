@@ -1,6 +1,10 @@
 package types
 
-import "golang.org/x/sync/errgroup"
+import (
+	"sync"
+
+	"golang.org/x/sync/errgroup"
+)
 
 const (
 	DefaultString = `1234567890abcdefghijklmnopqrstuvwxyz
@@ -22,5 +26,7 @@ const (
 )
 
 var (
-	G errgroup.Group
+	G   errgroup.Group
+	MU  sync.Mutex
+	RWM sync.RWMutex
 )

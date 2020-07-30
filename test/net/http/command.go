@@ -5,6 +5,8 @@ import (
 	"sync"
 
 	"github.com/spf13/cobra"
+
+	"auxx/test/net/http/gin"
 )
 
 var (
@@ -22,6 +24,7 @@ func NewCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		newUgtpCommand(),
+		gin.NewCommand(),
 	)
 
 	return cmd
