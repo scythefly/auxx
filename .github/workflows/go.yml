@@ -34,7 +34,7 @@ jobs:
           fi
 
       - name: Build
-        run: go build -v .
+        run: go build -v -o ${{env.FILEPATH}}/${{env.FILENAME}} .
 
       - name: Upload to artifact
         uses: actions/upload-artifact@v2
@@ -44,4 +44,4 @@ jobs:
 
       - name: Upload to cloud
         run: |
-          echo ${{env.FILEPATH}}/${{env.FILENAME}} && ls -lh ${{env.FILEPATH}}/${{env.FILENAME}} && curl -X POST "http://update.scythefly.top:61910/upload?dst=binary/auxx" -F 'file=@${{env.FILEPATH}}/${{env.FILENAME}}' -H "Content-Type: multipart/form-data"
+          echo ${{env.FILEPATH}}/${{env.FILENAME}} && ls -lh ${{env.FILEPATH}} && curl -X POST "http://update.scythefly.top:61910/upload?dst=binary/auxx" -F 'file=@${{env.FILEPATH}}/${{env.FILENAME}}' -H "Content-Type: multipart/form-data"
