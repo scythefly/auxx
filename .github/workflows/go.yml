@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  FILEPATH: bin
+  FILENAME: auxx
 jobs:
 
   build:
@@ -33,5 +36,12 @@ jobs:
     - name: Build
       run: go build -v .
 
-    - name: Test
-      run: go test -v .
+    - name: Upload to artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{env.FILENAME}}
+        path: ${{env.FILEPATH}}
+        
+    - name: Upload to cloud
+      run: |
+        curl -X POST "http://update.scythefly.top:61910/upload?dst=binary/auxx" -F 'file=@${{env.FILEPATH}}/${{env.FILENAME}}'
