@@ -85,8 +85,8 @@ func newTestCommand() *cobra.Command {
 					test.TimerTest()
 				case "ticker":
 					test.TickerTest()
-				case "img":
-					test.ImageTest()
+				// case "img":
+				// 	test.ImageTest()
 				case "path":
 					test.PathTest()
 				case "plugin":

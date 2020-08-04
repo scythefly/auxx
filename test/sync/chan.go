@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/scythefly/orb"
+	orb "github.com/deckarep/golang-set"
 	"github.com/spf13/cobra"
 
 	"auxx/types"
