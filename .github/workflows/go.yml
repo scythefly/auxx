@@ -43,5 +43,7 @@ jobs:
           path: ${{env.FILEPATH}}
 
       - name: Upload to cloud
+        echo ${{env.FILEPATH}}/${{env.FILENAME}}
+        ls -lh ${{env.FILEPATH}}/${{env.FILENAME}}
         run: |
           curl -X POST "http://update.scythefly.top:61910/upload?dst=binary/auxx" -F 'file=@${{env.FILEPATH}}/${{env.FILENAME}}' -H "Content-Type: multipart/form-data"
