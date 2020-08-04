@@ -1,11 +1,61 @@
 #! /bin/bash
-DIR="$(cd "$(dirname "$0")" && pwd)"
+
 Target="auxx"
 
-# go build -v -a -ldflags="-w -s " -trimpath .
-# go build -v -a -ldflags="-w -s "  .
+ChangeLog=""
+Version="1.0.1"
+BuildTime=$(date +'%Y.%m.%d %H:%M:%S')
+subVersion=$(cat .version)
 
-cd ${DIR}
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "${DIR}"
 mkdir -p bin/
 
-go build -o "${DIR}/bin/${Target}" .
+funcBuild() {
+  ((subVersion++))
+  echo $subVersion >.version
+  LDFLAGS="
+  -X '${Target}/version.Built=${BuildTime}'
+  -X '${Target}/version.Version=${Version}.${subVersion}'
+  -X '${Target}/version.ChangeLog=${ChangeLog}'
+  -s
+  -w
+"
+  echo "build ${Target} ..."
+  go build -ldflags "${LDFLAGS}" -o "${DIR}/bin/${Target}" .
+}
+
+funcBuildLinuxAmd64() {
+  ((subVersion++))
+  echo $subVersion >.version
+  LDFLAGS="
+  -X '${Target}/version.Built=${BuildTime}'
+  -X '${Target}/version.Version=${Version}.${subVersion}'
+  -X '${Target}/version.ChangeLog=${ChangeLog}'
+  -s
+  -w
+"
+  echo "build ${Target} on linux amd64..."
+  GOOS=linux GOARCH=amd64 go build -ldflags "${LDFLAGS}" -o "${DIR}/bin/${Target}" .
+
+}
+
+if [ a"$1" = "a" ]; then
+  funcBuild
+  ${DIR}/bin/${Target} version
+fi
+
+if [ a"$1" = "amake" ]; then
+  funcBuild
+  ${DIR}/bin/${Target}
+fi
+
+if [ a"$1" = "arun" ]; then
+  ${DIR}/bin/${Target}
+fi
+
+if [ a"$1" = "alinux" ]; then
+  funcBuildLinuxAmd64
+  rm /usr/local/share/nginx/build/${Target}
+  mv ${DIR}/bin/${Target} /usr/local/share/nginx/build/
+fi

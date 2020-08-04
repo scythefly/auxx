@@ -6,10 +6,12 @@ import (
 	"github.com/spf13/cobra"
 
 	"auxx/test"
+	"auxx/test/daemon"
 	"auxx/test/etcd"
 	"auxx/test/kafka"
 	"auxx/test/net"
 	"auxx/test/sync"
+	"auxx/test/update"
 )
 
 func newTestCommand() *cobra.Command {
@@ -26,6 +28,7 @@ func newTestCommand() *cobra.Command {
 	-- error
 	-- img
 	-- interface
+	-- panic
 	-- path
 	-- plugin
 	-- pointer
@@ -92,6 +95,8 @@ func newTestCommand() *cobra.Command {
 					test.InterfaceTest()
 				case "user":
 					test.UserTest()
+				case "panic":
+					test.PanicTest()
 				default:
 					fmt.Println("----  unknown test command  ----")
 				}
@@ -100,10 +105,12 @@ func newTestCommand() *cobra.Command {
 	}
 
 	cmd.AddCommand(
+		daemon.NewCommand(),
 		etcd.NewCommand(),
 		net.NewCommand(),
 		kafka.NewCommand(),
 		sync.NewCommand(),
+		update.NewCommand(),
 	)
 	return cmd
 }

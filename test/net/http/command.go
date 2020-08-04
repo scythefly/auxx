@@ -41,5 +41,5 @@ func httpRun(*cobra.Command, []string) error {
 		})
 	})
 	dispatchMux.HandleFunc("/test/22", handleRedirect)
-	return http.ListenAndServe(":8989", dispatchMux)
+	return http.ListenAndServe(":30001", dispatchMux)
 }
