@@ -66,7 +66,6 @@ func newTestCommand() *cobra.Command {
 					test.XmlTest()
 				case "defer":
 					test.DeferTest()
-					test.ImageTest()
 				case "reflect":
 					test.ReflectTest()
 				case "return":
