@@ -5,15 +5,13 @@ Target="auxx"
 ChangeLog=""
 Version="1.0.1"
 BuildTime=$(date +'%Y.%m.%d %H:%M:%S')
-subVersion=$(cat .version)
+subVersion=`git rev-parse --short HEAD`
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${DIR}"
 mkdir -p bin/
 
 funcBuild() {
-  ((subVersion++))
-  echo $subVersion >.version
   LDFLAGS="
   -X '${Target}/version.Built=${BuildTime}'
   -X '${Target}/version.Version=${Version}.${subVersion}'
@@ -26,8 +24,6 @@ funcBuild() {
 }
 
 funcBuildLinuxAmd64() {
-  ((subVersion++))
-  echo $subVersion >.version
   LDFLAGS="
   -X '${Target}/version.Built=${BuildTime}'
   -X '${Target}/version.Version=${Version}.${subVersion}'
