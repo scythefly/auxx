@@ -38,7 +38,6 @@ funcBuildLinuxAmd64() {
 
 if [ a"$1" = "a" ]; then
   funcBuild
-  ${DIR}/bin/${Target} version
 fi
 
 if [ a"$1" = "amake" ]; then

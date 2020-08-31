@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"auxx/command/utility"
+	"auxx/ui"
 	"auxx/version"
 )
 
@@ -17,6 +18,8 @@ func init() {
 		newLeetcodeCommand(),
 		newTestCommand(),
 		newHttpCommand(),
+		newUpdateCommand(),
+		ui.NewCommand(),
 		utility.NewCommand(),
 		version.NewCommand(),
 	)

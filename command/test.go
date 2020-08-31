@@ -8,6 +8,7 @@ import (
 	"auxx/test"
 	"auxx/test/daemon"
 	"auxx/test/etcd"
+	"auxx/test/image"
 	"auxx/test/kafka"
 	"auxx/test/net"
 	"auxx/test/sync"
@@ -84,8 +85,6 @@ func newTestCommand() *cobra.Command {
 					test.TimerTest()
 				case "ticker":
 					test.TickerTest()
-				// case "img":
-				// 	test.ImageTest()
 				case "path":
 					test.PathTest()
 				case "plugin":
@@ -106,6 +105,7 @@ func newTestCommand() *cobra.Command {
 	cmd.AddCommand(
 		daemon.NewCommand(),
 		etcd.NewCommand(),
+		image.NewCommand(),
 		net.NewCommand(),
 		kafka.NewCommand(),
 		sync.NewCommand(),

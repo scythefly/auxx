@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"auxx/test/net/http"
+	"auxx/test/net/http/fasthttp"
 )
 
 func NewCommand() *cobra.Command {
@@ -14,6 +15,7 @@ func NewCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		http.NewCommand(),
+		fasthttp.NewCommand(),
 		newConnCommand(),
 	)
 
