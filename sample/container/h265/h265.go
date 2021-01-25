@@ -3,7 +3,7 @@ package h265
 import (
 	"fmt"
 
-	"pkg/bit"
+	"github.com/kakami/pkg/bit"
 )
 
 // NalUnit ...

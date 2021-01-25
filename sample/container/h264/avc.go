@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"pkg/bit"
+	"github.com/kakami/pkg/bit"
 )
 
 var pixelAspect = [17]AVRational{

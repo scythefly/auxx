@@ -1,7 +1,7 @@
 package h264
 
 import (
-	"pkg/bit"
+	"github.com/kakami/pkg/bit"
 )
 
 // AVCPacket ...
