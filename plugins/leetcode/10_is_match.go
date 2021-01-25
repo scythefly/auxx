@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import (
 	"fmt"
@@ -72,7 +72,7 @@ func printIsMatch(s, p string) {
 	fmt.Printf("%v, %s - [%s]\n", isMatch(s, p), s, p)
 }
 
-func TestIsMatch() {
+func runIsMatch() {
 	printIsMatch("aa", "a")
 	printIsMatch("aa", "a*")
 }

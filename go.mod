@@ -4,7 +4,7 @@ go 1.15
 
 replace (
 	code.google.com/p/graphics-go/graphics => github.com/kakami/graphics-go/graphics v0.0.0-20200817091218-b0f49abb9380
-	fyne.io/fyne => github.com/fyne-io/fyne v1.3.3
+	fyne.io/fyne => github.com/fyne-io/fyne v1.4.3
 	github.com/kakami/gocron v0.0.0-20201221071540-5e96d754babc => /Users/iuz/work/kakami/gocron
 	github.com/aws/aws-sdk-go => github.com/kakami/aws-sdk-go v1.34.14
 	github.com/valyala/fasthttp => github.com/kakami/fasthttp v1.16.1

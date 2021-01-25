@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import "fmt"
 
@@ -65,7 +65,7 @@ func printReverse(x int) {
 	fmt.Println(x, "=>", reverse(x))
 }
 
-func TestReverse() {
+func runReverse() {
 	printReverse(123)
 	printReverse(-123)
 	printReverse(230)

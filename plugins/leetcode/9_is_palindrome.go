@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import "fmt"
 
@@ -60,7 +60,7 @@ func printIsPalindrome(x int) {
 	fmt.Println(x, "=>", isPalindrome(x))
 }
 
-func TestIsPalindrome() {
+func runIsPalindrome() {
 	printIsPalindrome(121)
 	printIsPalindrome(1212)
 	printIsPalindrome(1221)

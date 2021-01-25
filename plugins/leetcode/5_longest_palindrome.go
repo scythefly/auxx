@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import "fmt"
 
@@ -78,7 +78,7 @@ func printLongestPalindrome(s string) {
 	fmt.Println(s, "=>", longestPalindrome(s))
 }
 
-func TestLongestPalindrome() {
+func runLongestPalindrome() {
 	printLongestPalindrome("abab")
 	printLongestPalindrome("cbbc")
 	printLongestPalindrome("fcbbc")

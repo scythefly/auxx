@@ -1,4 +1,4 @@
-package ui
+package main
 
 import (
 	"fyne.io/fyne"
@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCommand() *cobra.Command {
-	cmd := &cobra.Command{
+func newCommand() cobra.Command {
+	cmd := cobra.Command{
 		Use:   "ui",
 		Short: "Run ui examples",
 		RunE:  uiRun,
@@ -64,3 +64,5 @@ func uiRun(_ *cobra.Command, _ []string) error {
 
 	return nil
 }
+
+var Commander = newCommand()

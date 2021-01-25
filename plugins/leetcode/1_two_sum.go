@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 /*
 1. 两数之和
@@ -26,6 +26,6 @@ func twoSum(nums []int, target int) []int {
 	return nil
 }
 
-func TestTwoSum() {
+func runTwoSum() {
 	fmt.Println(twoSum([]int{2, 7, 11, 15}, 9))
 }

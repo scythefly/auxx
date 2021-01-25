@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import "fmt"
 
@@ -112,7 +112,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 }
 
-func FindMedianSortedArraysTest() {
+func runFindMedianSortedArraysTest() {
 	n1 := []int{1, 3, 5, 7}
 	n2 := []int{2, 4, 6}
 

@@ -1,4 +1,4 @@
-package utility
+package main
 
 import (
 	"database/sql"
@@ -16,8 +16,8 @@ var (
 	once   sync.Once
 )
 
-func NewCommand() *cobra.Command {
-	cmd := &cobra.Command{
+func newCommand() cobra.Command {
+	cmd := cobra.Command{
 		Use:   "go",
 		Short: "go go go",
 	}
@@ -44,3 +44,5 @@ func openDB() {
 		}
 	})
 }
+
+var Commander = newCommand()

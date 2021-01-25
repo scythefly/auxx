@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import "fmt"
 
@@ -64,7 +64,7 @@ func printConvert(s string, numRows int) {
 	fmt.Println(s, numRows, convert(s, numRows))
 }
 
-func TestConvert() {
+func runConvert() {
 	printConvert("LEETCODEISHIRING", 3)
 	printConvert("LEETCODEISHIRING", 4)
 }

@@ -16,6 +16,9 @@ func main() {
 	// go http.ListenAndServe(":6060", nil)
 
 	rand.Seed(time.Now().UnixNano())
+	if err := command.Load(); err != nil {
+		panic(err)
+	}
 	if err := command.Execute(); err != nil {
 		fmt.Println(err)
 	}

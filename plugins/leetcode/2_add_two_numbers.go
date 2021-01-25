@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 /*
 2. 两数相加
@@ -74,7 +74,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return rt
 }
 
-func AddTwoNumbersTest() {
+func runAddTwoNumbersTest() {
 	l1 := &ListNode{2, nil}
 	l1.Next = &ListNode{4, nil}
 	l1.Next.Next = &ListNode{3, nil}

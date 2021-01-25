@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 import (
 	"fmt"
@@ -98,7 +98,7 @@ func printMyAtoi(str string) {
 	fmt.Println(str, "=>", myAtoi(str))
 }
 
-func TestMyAtoi() {
+func runMyAtoi() {
 	printMyAtoi("")
 	printMyAtoi("42")
 	printMyAtoi("   42")

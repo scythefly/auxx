@@ -1,4 +1,4 @@
-package leetcode
+package main
 
 /*
 3. 无重复字符的最长子串
@@ -68,7 +68,7 @@ func printLengthOfLongestSubstring(s string) {
 	fmt.Println(s, "=>", lengthOfLongestSubstring(s))
 }
 
-func TestLengthOfLongestSubstring() {
+func runLengthOfLongestSubstring() {
 	printLengthOfLongestSubstring("")
 	printLengthOfLongestSubstring(" ")
 	printLengthOfLongestSubstring("au")
