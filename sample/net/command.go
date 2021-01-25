@@ -3,11 +3,11 @@ package net
 import (
 	"github.com/spf13/cobra"
 
-	"auxx/test/net/http"
-	"auxx/test/net/http/fasthttp"
-	"auxx/test/net/rpc"
-	"auxx/test/net/writev"
-	"auxx/test/net/ws"
+	"auxx/sample/net/http"
+	"auxx/sample/net/http/fasthttp"
+	"auxx/sample/net/rpc"
+	"auxx/sample/net/writev"
+	"auxx/sample/net/ws"
 )
 
 func NewCommand() *cobra.Command {

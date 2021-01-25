@@ -8,6 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"auxx/sample"
 	"auxx/version"
 )
 
@@ -28,8 +29,7 @@ var (
 
 func init() {
 	rootCmd.AddCommand(
-		newTestCommand(),
-		newHttpCommand(),
+		sample.NewTestCommand(),
 		newUpdateCommand(),
 		version.NewCommand(),
 	)

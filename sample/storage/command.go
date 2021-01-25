@@ -1,20 +1,19 @@
-package sys
+package storage
 
 import (
 	"github.com/spf13/cobra"
 
-	"auxx/test/sys/flock"
+	"auxx/sample/storage/s3"
 )
 
 func NewCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "sys",
-		Short: "run sys examples",
+		Use:   "storage",
+		Short: "run storage examples",
 	}
 
 	cmd.AddCommand(
-		flock.NewCommand(),
+		s3.NewCommand(),
 	)
-
 	return cmd
 }

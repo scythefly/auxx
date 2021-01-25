@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"auxx/test/net/http/gin"
+	"auxx/sample/net/http/gin"
 )
 
 var (
