@@ -1,0 +1,36 @@
+// 和etcd一起使用:
+// 当前版本的etcd(v3.3.25)使用grpc的版本较低,需要使用v1.3.2版本的protoc-gen-go
+// go get -u -v github.com/golang/protobuf/protoc-gen-go@v1.3.2
+// protoc --go_out=plugins=grpc:. hello.proto
+
+syntax = "proto3";
+
+package rpc;
+option go_package = ".;rpc";
+
+message String {
+  string value = 1;
+}
+
+message Response {
+  int32 status = 1;
+}
+
+service HelloService {
+  rpc Hello(String) returns (String);
+  rpc Channel(stream String) returns (stream String);
+}
+
+service PubsubService {
+  rpc Publish(String) returns (String);
+  rpc Subscribe(String) returns (stream String);
+}
+
+service AceQueue {
+  rpc Publish(String) returns (String);
+  rpc Subscribe(String) returns (stream String);
+}
+
+service TaskService {
+  rpc Channel(stream String) returns (Response);
+}

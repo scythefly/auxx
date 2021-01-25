@@ -5,6 +5,9 @@ import (
 
 	"auxx/test/net/http"
 	"auxx/test/net/http/fasthttp"
+	"auxx/test/net/rpc"
+	"auxx/test/net/writev"
+	"auxx/test/net/ws"
 )
 
 func NewCommand() *cobra.Command {
@@ -14,8 +17,11 @@ func NewCommand() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		http.NewCommand(),
 		fasthttp.NewCommand(),
+		http.NewCommand(),
+		rpc.NewCommand(),
+		writev.NewCommand(),
+		ws.NewCommand(),
 		newConnCommand(),
 	)
 

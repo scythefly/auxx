@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Messier78/gocron"
+	"github.com/kakami/gocron"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 

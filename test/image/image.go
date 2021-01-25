@@ -10,11 +10,13 @@ import (
 	"os"
 
 	"code.google.com/p/graphics-go/graphics"
+	set "github.com/deckarep/golang-set"
 	"github.com/spf13/cobra"
 )
 
 var option struct {
-	x int
+	x    int
+	anti bool
 }
 
 func NewCommand() *cobra.Command {
@@ -25,26 +27,33 @@ func NewCommand() *cobra.Command {
 	}
 	flags := cmd.PersistentFlags()
 	flags.IntVarP(&option.x, "max-x", "x", 50, "max x pixes")
+	flags.BoolVarP(&option.anti, "anti-color", "o", false, "anti-color")
 
 	return cmd
 }
 
 func runImage(_ *cobra.Command, args []string) error {
+	fs := set.NewSet()
 	for idx := range args {
-		imgTransfer(args[idx])
+		fs.Add(args[idx])
 	}
+
+	fs.Each(func(v interface{}) bool {
+		imgTransfer(v.(string))
+		return false
+	})
 	return nil
 }
 
 func imgTransfer(path string) {
-	ff, _ := ioutil.ReadFile("./47.44.png")
+	ff, _ := ioutil.ReadFile(path)
 	buf := bytes.NewBuffer(ff)
 	m, _, err := image.Decode(buf)
 	if err != nil {
 		fmt.Printf("decode return err: %s\n", err.Error())
 		return
 	}
-	asciiImage(m)
+	asciiImage(m, path+".txt")
 }
 func rectImage(m image.Image, newdx int) *image.RGBA {
 	bounds := m.Bounds()
@@ -55,7 +64,7 @@ func rectImage(m image.Image, newdx int) *image.RGBA {
 	return newRgba
 }
 
-func asciiImage(m image.Image) {
+func asciiImage(m image.Image, out string) {
 	fmt.Printf("dx: %d, dy: %d\n", m.Bounds().Dx(), m.Bounds().Dy())
 	if m.Bounds().Dx() > option.x {
 		m = rectImage(m, option.x)
@@ -63,9 +72,14 @@ func asciiImage(m image.Image) {
 	bounds := m.Bounds()
 	dx := bounds.Dx()
 	dy := bounds.Dy()
-	arr := []string{".", "N", "H", "Q", "$", "O", "C", "?", "7", ">", "!", ":", "–", ";", "."}
+	var arr []string
+	if !option.anti {
+		arr = []string{".", ";", "-", ":", "!", ">", "7", "?", "C", "O", "$", "Q", "H", "N", "M"}
+	} else {
+		arr = []string{"M", "N", "H", "Q", "$", "O", "C", "?", "7", ">", "!", ":", "–", ";", "."}
+	}
 
-	ff, err := os.Create("./out.txt")
+	ff, err := os.Create(out)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -11,8 +11,9 @@ import (
 )
 
 const (
-	numberExpr  = `^(\s)*第(\s)*[0-9]+(\s)*章 [^\n]*\n$`
-	chineseExpr = `^(\s)*第[一二三四五六七八九十百千零]+章[^\n]*\n$`
+	numberExpr     = `^(\s)*第(\s)*[0-9]+(\s)*章 [^\n]*\n$`
+	chineseExpr    = `^(\s)*第[一二三四五六七八九十百千零]+章[^\n]*\n$`
+	numberOnlyExpr = `^(\s)*[0-9]+(\s)+[^\n]+\n$`
 )
 
 type splitFileOption struct {
@@ -24,7 +25,39 @@ type splitFileOption struct {
 	expr            string
 }
 
+type ut struct {
+	regs []*regexp.Regexp
+	reg  *regexp.Regexp
+}
+
 var opt *splitFileOption
+var _ut = newUT()
+
+func (u *ut) init() {
+	u.regs = append(u.regs, regexp.MustCompile(numberExpr))
+	u.regs = append(u.regs, regexp.MustCompile(numberOnlyExpr))
+	u.regs = append(u.regs, regexp.MustCompile(chineseExpr))
+}
+
+func newUT() *ut {
+	u := &ut{}
+	u.init()
+
+	return u
+}
+
+func (u *ut) match(line []byte) bool {
+	for idx := range u.regs {
+		if u.regs[idx].Match(line) {
+			return true
+		}
+	}
+	return false
+}
+
+func (u *ut) match1(line []byte) bool {
+	return u.reg.Match(line)
+}
 
 func newsplitFileCommand() *cobra.Command {
 	opt = &splitFileOption{}
@@ -40,19 +73,15 @@ func newsplitFileCommand() *cobra.Command {
 	flags.BoolVarP(&opt.splitBySize, "split-by-size", "c", false, "split file by size")
 	flags.Int64VarP(&opt.splitSize, "split-size", "s", 512*1024, "split by size")
 	flags.IntVar(&opt.splitChapterCnt, "split-chapter", 100, "split by chapter")
-	flags.IntVarP(&opt.splitExprType, "split-expr-type", "e", 0, "expr\n\t0: 第123章\n\t1: 第一百二十三章")
 	flags.StringVar(&opt.expr, "expr", "", "regexp expression")
+
+	if opt.expr != "" {
+		_ut.reg = regexp.MustCompile(opt.expr)
+	}
 	return cmd
 }
 
 func splitFile(opt *splitFileOption, args []string) error {
-	if opt.expr == "" {
-		if opt.splitExprType == 1 {
-			opt.expr = chineseExpr
-		} else {
-			opt.expr = numberExpr
-		}
-	}
 	for _, fileName := range args {
 		str := fileName
 		g.Go(func() error {
@@ -87,8 +116,11 @@ func split(opt *splitFileOption, fileName string) error {
 			idx++
 		}
 	} else {
+		fn := _ut.match
+		if opt.expr != "" {
+			fn = _ut.match1
+		}
 		r := bufio.NewReader(f)
-		reg := regexp.MustCompile(opt.expr)
 		var idx, cnt int
 		str := fmt.Sprintf("%s_%03d.txt", fileName, idx)
 		ff, err := os.Create(str)
@@ -100,7 +132,7 @@ func split(opt *splitFileOption, fileName string) error {
 			if rerr != nil && rerr != io.EOF {
 				return rerr
 			}
-			if reg.Match(line) {
+			if fn(line) {
 				fmt.Printf("[%d] - %s", cnt, line)
 				cnt++
 				if cnt >= opt.splitChapterCnt {

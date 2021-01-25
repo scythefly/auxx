@@ -35,11 +35,18 @@ func Test_Sort(t *testing.T) {
 	fmt.Println(strconv.FormatInt(time.Now().Unix()+60, 10))
 	nn := &nodenode{}
 	r := rand.New(rand.NewSource(time.Now().Unix()))
-	for i := 0; i < 100000; i++ {
+	for i := 0; i < 10; i++ {
 		nn.nodes = append(nn.nodes, &node{idx: r.Int31()})
 	}
 	tt := time.Now()
+	// for idx := range nn.nodes {
+	// 	fmt.Println(nn.nodes[idx].idx)
+	// }
+	fmt.Println("=====================================")
 	sort.Sort(nn)
+	for idx := range nn.nodes {
+		fmt.Println(nn.nodes[idx].idx)
+	}
 	fmt.Println(">> ", time.Now().Sub(tt))
 }
 

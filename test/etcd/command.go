@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	endpoints = []string{"127.0.0.2:2379"}
+	endpoints = []string{"10.68.192.112:2379", "10.68.192.113:2379", "10.68.192.114:2379"}
 )
 
 func NewCommand() *cobra.Command {
@@ -23,7 +23,9 @@ func NewCommand() *cobra.Command {
 	}
 
 	cmd.AddCommand(
+		newAtomicCommand(),
 		newWatchCommand(),
+		newWatch1Command(),
 		newPluginCommand(),
 		newLeaseCommand(),
 		newLeaseKVCommand(),
@@ -39,7 +41,7 @@ type rootC struct {
 	gctx context.Context
 }
 
-func etcdRun(cmd *cobra.Command, args []string) error {
+func etcdRun(_ *cobra.Command, _ []string) error {
 	var err error
 	rc := &rootC{}
 	// put get

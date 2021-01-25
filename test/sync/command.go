@@ -14,8 +14,9 @@ func NewCommand() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		newChanCommand(),
 		newAtomicCommand(),
+		newChanCommand(),
+		newPoolCommand(),
 	)
 	return cmd
 }

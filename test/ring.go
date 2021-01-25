@@ -1,6 +1,7 @@
 package test
 
 import (
+	"container/list"
 	"container/ring"
 	"fmt"
 	"reflect"
@@ -33,6 +34,7 @@ type server struct {
 	in        chan struct{}
 	clients   orb.Set
 	keyFrameR *ring.Ring
+	list      *list.List
 }
 
 var (

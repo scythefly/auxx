@@ -4,13 +4,14 @@ import (
 	"github.com/spf13/cobra"
 
 	"auxx/command/utility"
-	"auxx/ui"
 	"auxx/version"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "auxx",
-	Short: "auxx auxx auxx",
+	Use:          "auxx",
+	Short:        "auxx auxx auxx",
+	SilenceUsage: true,
+	// SilenceErrors: true,
 }
 
 func init() {
@@ -19,7 +20,7 @@ func init() {
 		newTestCommand(),
 		newHttpCommand(),
 		newUpdateCommand(),
-		ui.NewCommand(),
+		// ui.NewCommand(),
 		utility.NewCommand(),
 		version.NewCommand(),
 	)

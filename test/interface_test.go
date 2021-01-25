@@ -4,33 +4,47 @@ import (
 	"testing"
 )
 
-func withCommon(f *frame) bool {
-	return f.idx < 100
+type IA interface {
+	AA()
 }
 
-func withInterface(idx interface{}) bool {
-	p, _ := idx.(*frame)
-	return p.idx < 100
+type AA struct {
+	idx int
 }
 
-func Benchmark_PackInterface(b *testing.B) {
-	f := &frame{
-		idx:   0,
-		value: 1,
-	}
+func (a *AA) AA() {
+	a.idx++
+}
+
+func interfaceRun(ia IA) {
+	ia.AA()
+}
+
+func aaRun(a *AA) {
+	a.AA()
+}
+
+func switchRun(v interface{}) {
+	v.(IA).AA()
+}
+
+func Benchmark_InterfaceRun(b *testing.B) {
+	a := &AA{}
 	for i := 0; i < b.N; i++ {
-		f.idx = i
-		withInterface(f)
+		interfaceRun(a)
 	}
 }
 
-func Benchmark_NoPack(b *testing.B) {
-	f := &frame{
-		idx:   0,
-		value: 1,
-	}
+func Benchmark_Run(b *testing.B) {
+	a := &AA{}
 	for i := 0; i < b.N; i++ {
-		f.idx = i
-		withCommon(f)
+		aaRun(a)
+	}
+}
+
+func Benchmark_switchRun(b *testing.B) {
+	a := &AA{}
+	for i := 0; i < b.N; i++ {
+		switchRun(a)
 	}
 }

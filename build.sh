@@ -8,6 +8,7 @@ BuildTime=$(date +'%Y.%m.%d %H:%M:%S')
 subVersion=`git rev-parse --short HEAD`
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
+BINARY="${DIR}/bin/${Target}"
 cd "${DIR}"
 mkdir -p bin/
 
@@ -36,21 +37,22 @@ funcBuildLinuxAmd64() {
 
 }
 
-if [ a"$1" = "a" ]; then
+case "$1" in
+make)
   funcBuild
-fi
-
-if [ a"$1" = "amake" ]; then
+  if [ $? -eq 0 ];then
+    ${BINARY} ${@:2}
+  fi
+  ;;
+run)
+  ${BINARY} ${@:2}
+  ;;
+*)
   funcBuild
-  ${DIR}/bin/${Target}
-fi
+  if [ $? -eq 0 ];then
+    ${BINARY} version
+  fi
+  ;;
+esac
 
-if [ a"$1" = "arun" ]; then
-  ${DIR}/bin/${Target}
-fi
-
-if [ a"$1" = "alinux" ]; then
-  funcBuildLinuxAmd64
-  rm /usr/local/share/nginx/build/${Target}
-  mv ${DIR}/bin/${Target} /usr/local/share/nginx/build/
-fi
+exit 0
