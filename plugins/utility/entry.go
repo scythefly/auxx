@@ -23,11 +23,12 @@ func newCommand() cobra.Command {
 	}
 
 	cmd.AddCommand(
-		newsplitFileCommand(),
-		newTraceCommand(),
-		newFetchWordsCommand(),
-		newInsertWordsCommand(),
-		newDecodeCommand(),
+		convertCommand(),
+		decodeCommand(),
+		fetchWordsCommand(),
+		insertWordsCommand(),
+		splitFileCommand(),
+		traceCommand(),
 	)
 
 	flags := cmd.Flags()

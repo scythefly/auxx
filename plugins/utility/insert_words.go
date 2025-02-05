@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newInsertWordsCommand() *cobra.Command {
+func insertWordsCommand() *cobra.Command {
 	opt := &wordsOption{
 	}
 	cmd := &cobra.Command{

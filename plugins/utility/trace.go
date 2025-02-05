@@ -15,7 +15,7 @@ var (
 	defaultHooks []string
 )
 
-func newTraceCommand() *cobra.Command {
+func traceCommand() *cobra.Command {
 	defaultHooks = strings.Split(defaultLogString, "&")
 	cmd := &cobra.Command{
 		Use:   "trace",

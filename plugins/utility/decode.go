@@ -56,7 +56,7 @@ type State struct {
 	AudioFrames uint64
 }
 
-func newDecodeCommand() *cobra.Command {
+func decodeCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "decode",
 		Short: "decode struct variables",

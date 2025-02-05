@@ -9,7 +9,7 @@ type wordsOption struct {
 	amount   int
 }
 
-func newFetchWordsCommand() *cobra.Command {
+func fetchWordsCommand() *cobra.Command {
 	opt := &wordsOption{
 	}
 	cmd := &cobra.Command{

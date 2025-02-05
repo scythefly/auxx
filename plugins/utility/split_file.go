@@ -59,7 +59,7 @@ func (u *ut) match1(line []byte) bool {
 	return u.reg.Match(line)
 }
 
-func newsplitFileCommand() *cobra.Command {
+func splitFileCommand() *cobra.Command {
 	opt = &splitFileOption{}
 	cmd := &cobra.Command{
 		Use:   "split-file",
